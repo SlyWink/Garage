@@ -1,5 +1,4 @@
-#define TX1 0b00110011
-#define TX2 0b11001100
+#include <xtea.h>
 
 #ifdef IS_TX1
   #define TX_ID 0b00110011
@@ -30,21 +29,24 @@
 #endif
 
 typedef struct {
-  uint8_t name[3];
-  uint8_t ident;
-  uint8_t count;
+  uint8_t name[3] ;
+  uint8_t ident ;
+  uint8_t count ;
+  uint8_t padding[3] ; // 64 bits needed for XTEA encryption
 } T_DATA;
 
 typedef struct {
-  uint8_t length; // Needed by Manchester library
+  uint8_t length ; // Needed by Manchester library
   T_DATA data ;
-  uint8_t check;
+  uint8_t check ;
 } T_MESSAGE;
 
 T_MESSAGE g_msg ;
 
-#define PROBE_NAME1 'G'
-#define PROBE_NAME2 'A'
-#define PROBE_NAME3 'R'
+#define LETTER1 'G'
+#define LETTER2 'A'
+#define LETTER3 'R'
+
+#define PADDING    {0,0,0}
 
 #define TX_SPEED MAN_600
